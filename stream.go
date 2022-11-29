@@ -36,6 +36,9 @@ func NewDecoder(r io.Reader) *Decoder {
 // Number instead of as a float64.
 func (dec *Decoder) UseNumber() { dec.d.useNumber = true }
 
+// UseStrictNames causes the Decoder to unmarshal only to exact field names.
+func (dec *Decoder) UseStrictNames() { dec.d.strict = true }
+
 // DisallowUnknownFields causes the Decoder to return an error when the destination
 // is a struct and the input contains object keys which do not match any
 // non-ignored, exported fields in the destination.

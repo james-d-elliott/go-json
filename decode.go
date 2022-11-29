@@ -217,6 +217,7 @@ type decodeState struct {
 	savedError            error
 	useNumber             bool
 	disallowUnknownFields bool
+	strict                bool
 }
 
 // readIndex returns the position of the last byte read.
@@ -703,7 +704,7 @@ func (d *decodeState) object(v reflect.Value) error {
 			if i, ok := fields.nameIndex[string(key)]; ok {
 				// Found an exact name match.
 				f = &fields.list[i]
-			} else {
+			} else if !d.strict {
 				// Fall back to the expensive case-insensitive
 				// linear search.
 				for i := range fields.list {
